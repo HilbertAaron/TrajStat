@@ -1,0 +1,97 @@
+<html>
+
+<head>
+  <title> PSCF Analysis - TrajStat_Help</title>
+  <meta http-equiv=Content-Type content="text/html; charset=gb2312">
+  <meta name="GENERATOR" content="Macrobject Word-2-CHM">
+  <link rel="stylesheet" href="Word2Chm.css" type="text/css">
+  <link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+
+<body lang=ZH-CN link=blue vlink=purple style='text-justify-trim:punctuation'>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td class="moHeader">&nbsp;PSCF Analysis</td>
+    </tr>
+  </table>
+  
+  <p></p>
+
+<div class=Section1 style='layout-grid:15.6pt'>
+
+
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The PSCF values for
+</span><span lang=EN-US>the</span><span lang=EN-US> grid cells in the study
+domain are calculated by counting the trajectory segment endpoints that
+terminate within each cell </span><span
+lang=EN-US>(Ashbaugh et al., 1985)</span><span lang=EN-US>. The number of
+endpoints that fall in the <i>ij</i>th cell is designated <i>n<sub>ij</sub></i>.
+The number of endpoints for the same cell having arrival times at the sampling
+site corresponding to PM concentrations higher than an arbitrarily set criterion
+is defined to be <i>m<sub>ij</sub></i>. The PSCF value for the <i>ij</i>th cell
+is then defined as </span></p>
+
+<p class=MsoNormal style='text-indent:78.75pt;line-height:200%'><span
+lang=EN-US style='line-height:200%'>PSCF<i><sub>ij</sub></i> = <i>m<sub>ij</sub></i>/<i>n<sub>ij</sub></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(6)</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The PSCF value
+can be interpreted as the conditional probability that<span style='color:black'>
+the co</span>ncentrations of a given analyte greater than the criterion level
+are related to the passage of air parcels through the <i>ij</i>th cell during
+transport to the receptor site. That is, cells with high PSCF values are
+associated with the arrival of air parcels at the receptor site that have
+concentrations of the analyte higher than the criterion value. These cells are
+indicative of areas of ‘high potential’ contributions for the constituent.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Click ‘PSCF
+Analysis’ menu item to open the below dialog.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><img
+border=0 width=595 height=354 src="image/pscf_analysis.png"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Select
+trajectory layers, PSCF layer, data field and set pollution criterion and null
+data. Then press ‘Get Nij’, ‘Get Mij’, ‘Cal PSCF’ buttons one by one. </span><span
+lang=EN-US>To reduce the effect of small values of <i>n<sub>ij</sub></i>, the
+PSCF values were multiplied by an arbitrary weight function W<i><sub>ij</sub></i>
+to better reflect the uncertainty in the values for these cells </span><span
+lang=EN-US>(Polissar et al., 1999)</span><span lang=EN-US>. The weighting
+function reduced the PSCF values when the total number of the endpoints in a
+particular cell was less than about three times the average value of the end
+points per each cell. In this case, Wij was defined as below.</span></p>
+
+<p class=MsoNormal style='text-indent:68.25pt;line-height:200%'><span
+lang=EN-US style='line-height:200%'><sub><img border=0 width=78 height=96
+src="image/image058.gif"></sub>&nbsp;&nbsp;&nbsp; <sub><img
+border=0 width=94 height=106 src="image/image059.gif"></sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(7)</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>After press ‘Weight
+PSCF’ button, the PSCF layer looks like below.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><img
+border=0 width=700 height=455 src="image/pscf_result.png"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The PSCF
+analysis point out that west desert areas are the sources of PM</span><sub><span
+ lang=EN-US>10</span></sub><span lang=EN-US> in</span><span lang=EN-US> Jiuquan
+ambient air.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+
+</div>
+  <p></p>
+  <hr class="moHR" />
+  <span class="moCopyright">
+    Copyright 2009-2014 Yaqiang Wang. All rights reserved.
+  </span>
+
+</body>
+
+</html>

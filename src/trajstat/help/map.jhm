@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+
+<!DOCTYPE map
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/map_1_0.dtd">
+
+<map version="1.0">
+	<mapID target="toplevelfolder" url="images/toplevel.gif" />
+	<mapID target="top" url="content_en/introduction.htm" />
+	<mapID target="introduction" url="content_en/introduction.htm" />
+	<mapID target="download" url="content_en/download.htm" />
+        <mapID target="example" url="content_en/example.htm" />
+        
+	<mapID target="traj_stat" url="content_en/traj_stat.htm" />
+        <mapID target="default_proj" url="content_en/default_proj.htm"/>
+        <mapID target="traj_cal" url="content_en/traj_cal.htm"/>
+        <mapID target="convert_shape" url="content_en/convert_shape.htm"/>
+        <mapID target="press_profile" url="content_en/press_profile.htm"/>
+        <mapID target="add_data" url="content_en/add_data.htm"/>
+        <mapID target="sel_traj" url="content_en/sel_traj.htm"/>
+        <mapID target="cluster_cal" url="content_en/cluster_cal.htm"/>
+        <mapID target="cluster_stat" url="content_en/cluster_stat.htm"/>
+        <mapID target="create_grid" url="content_en/create_grid.htm"/>
+        <mapID target="pscf" url="content_en/pscf.htm"/>
+        <mapID target="cwt" url="content_en/cwt.htm"/>
+        
+        <mapID target="reference" url="content_en/reference.htm"/>
+</map>

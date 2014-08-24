@@ -1,0 +1,119 @@
+<html>
+
+<head>
+  <title> Cluster Calculation - TrajStat_Help</title>
+  <meta http-equiv=Content-Type content="text/html; charset=gb2312">
+  <meta name="GENERATOR" content="Macrobject Word-2-CHM">
+  <link rel="stylesheet" href="Word2Chm.css" type="text/css">
+  <link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+
+<body lang=ZH-CN link=blue vlink=purple style='text-justify-trim:punctuation'>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td class="moHeader">&nbsp;Cluster Calculation</td>
+    </tr>
+  </table>
+  
+  <p></p>
+
+<div class=Section1 style='layout-grid:15.6pt'>
+
+
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A ‘Cluster
+Calculation’ dialog will be opened when click ‘Cluster Analysis’ menu item.
+There are two clustering options with Euclidean distance or angle distance 
+(Sirois and Bottenheim, 1995). If users only concern the directions of the 
+trajectories in clustering, then angle distance should be selected.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The Euclidean
+distance between two backward trajectories was then given by</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><sub><img
+border=0 width=298 height=50 src="image/image041.gif"></sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(1)</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Where <i>X</i><sub>1 </sub>(<i>Y</i><sub>1</sub>)
+and <i>X</i><sub>2 </sub>(<i>Y</i><sub>2</sub>) reference to backward
+trajectories 1 and 2, respectively. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The angle
+distance between two backward trajectories was defined as</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><sub><img
+border=0 width=234 height=56 src="image/image042.gif"></sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(2)</span></p>
+
+<p class=MsoNormal><span lang=EN-US>where</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><sub><img
+border=0 width=242 height=26 src="image/image043.gif"></sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(3)</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><sub><img
+border=0 width=246 height=26 src="image/image044.gif"></sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(4)</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><sub><img
+border=0 width=274 height=26 src="image/image045.gif"></sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(5)</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The variables <i>X</i><sub>0</sub>
+and <i>Y</i><sub>0</sub> define the position of the studied site. Note that <i>d</i><sub>12</sub>
+varies between 0 and π. The two extreme values occur when two trajectories are
+in the same and opposite direction, respectively. As defined by equations </span><span lang=EN-US>(2) to (5)</span><span lang=EN-US>, <i>d</i><sub>12</sub> is the mean
+angle between the two backward trajectories, as seen from the studied site.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><img
+border=0 width=588 height=586 src="image/cluster_cal.png"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Press ‘Calculate
+Cluster’ button to run the clustering program. Then a .txt file with trajectory
+number and cluster members was created. In this case, maximum cluster number is
+set to 9 which could be changed if necessary.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><img
+border=0 width=554 height=368 src="image/image047.jpg"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>‘Eye ball’
+method was used to determine the cluster number in this software. In ‘Cluster
+Calculation’ dialog, mean trajectories and trajectory number of each cluster
+could be calculated and to be transferred to ESRI shape file according to
+selected cluster number by pressing ‘ Mean Traj’ button. Several kinds
+of mean trajectories were calculated and showed in map view, and then a
+suitable cluster number could be determined by your eyes. In this example,
+Cluster number 5 is decided.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><img
+border=0 width=700 height=455 src="image/cluster_angle5.png"></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Set cluster
+number to </span><span
+ lang=EN-US>5 in</span><span lang=EN-US> ‘Cluster Calculation’ dialog, and then
+press ‘Add to Traj’ button. Select layers in opened ‘Select Trajectory
+Layers’ dialog. The cluster attribute will be added to the trajectory layers
+with ‘Cluster’ field.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><img
+border=0 width=700 height=398 src="image/cluster_table.png"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+
+</div>
+  <p></p>
+  <hr class="moHR" />
+  <span class="moCopyright">
+    Copyright 2009-2014 Yaqiang Wang. All rights reserved.
+  </span>
+
+</body>
+
+</html>

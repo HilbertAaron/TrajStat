@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 2.0//EN"
+         "../dtd/toc_2_0.dtd">
+
+<toc version="2.0">
+<tocitem text="TrajStat Help" image="toplevelfolder">
+  <tocitem text="Introduction" target="introduction"/>
+  <tocitem text="Download and Run TrajStat" target="download"/>
+  <tocitem text="Example" target="example"/>
+  
+  <tocitem text="Trajectory Statistics" target="traj_stat" expand="true">
+    <tocitem text="Open Default Project" target="default_proj"/>
+    <tocitem text="Trajectory Calculation" target="traj_cal"/>
+    <tocitem text="Convert to Shape File" target="convert_shape"/>
+    <tocitem text="Show Pressure Profile" target="press_profile"/>
+    <tocitem text="Add Data to Trajectory" target="add_data"/>
+    <tocitem text="Select Trajectory" target="sel_traj"/>
+    <tocitem text="Cluster Calculation" target="cluster_cal"/>
+    <tocitem text="Cluster Statistics" target="cluster_stat"/>
+    <tocitem text="Create Grid Layer" target="create_grid"/>
+    <tocitem text="PSCF Analysis" target="pscf"/>
+    <tocitem text="CWT Analysis" target="cwt"/>
+  </tocitem>
+  
+  <tocitem text="Reference" target="reference"/>  
+      
+</tocitem>
+</toc>
