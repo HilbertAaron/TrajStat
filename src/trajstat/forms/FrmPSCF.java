@@ -1,6 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/* Copyright 2014 - Yaqiang Wang,
+ * yaqiang.wang@gmail.com
+ * 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or (at
+ * your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser
+ * General Public License for more details.
  */
 package trajstat.forms;
 
@@ -29,7 +38,7 @@ import org.meteoinfo.ui.CheckTreeSelectionModel;
 
 /**
  *
- * @author yaqiang
+ * @author Yaqiang Wang
  */
 public class FrmPSCF extends javax.swing.JDialog {
 
