@@ -48,10 +48,12 @@ public class FrmAddData extends javax.swing.JDialog {
 
     private IApplication app;
     private File infile;
-    private double undef = -9999.0;
+    private final double undef = -9999.0;
 
     /**
      * Creates new form FrmAddXYData
+     * @param parent
+     * @param modal
      */
     public FrmAddData(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -405,7 +407,7 @@ public class FrmAddData extends javax.swing.JDialog {
                 sr = new BufferedReader(new FileReader(infile));
                 String aDataStr;
                 String[] aDataArray;
-                int N = 0;
+                int N;
                 sr.readLine();
                 aDataStr = sr.readLine();
                 while (aDataStr != null) {

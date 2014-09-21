@@ -105,7 +105,7 @@ public class FrmChart extends JDialog {
         //Tool bar
         ImageIcon icon = new ImageIcon(this.getClass().getResource("/trajstat/resources/Select.png"));
         button_Sel.setIcon(icon);
-        button_Sel.setToolTipText("Select Trajectories");
+        button_Sel.setToolTipText("Select Trajectory");
         button_Sel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,7 +116,7 @@ public class FrmChart extends JDialog {
         
         icon = new ImageIcon(this.getClass().getResource("/trajstat/resources/Remove.png"));
         button_Remove.setIcon(icon);
-        button_Remove.setToolTipText("Select Trajectories");
+        button_Remove.setToolTipText("Remove Last Trajectory");
         button_Remove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,7 +127,7 @@ public class FrmChart extends JDialog {
         
         icon = new ImageIcon(this.getClass().getResource("/trajstat/resources/RemoveAll.png"));
         button_RemoveAll.setIcon(icon);
-        button_RemoveAll.setToolTipText("Select Trajectories");
+        button_RemoveAll.setToolTipText("Remove All Trajectories");
         button_RemoveAll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
