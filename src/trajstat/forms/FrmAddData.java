@@ -33,7 +33,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.meteoinfo.data.mapdata.Field;
 import org.meteoinfo.global.GenericFileFilter;
-import org.meteoinfo.global.table.DataTypes;
+import org.meteoinfo.table.DataTypes;
 import org.meteoinfo.ui.CheckBoxListEntry;
 import org.meteoinfo.layer.VectorLayer;
 import org.meteoinfo.legend.GroupNode;

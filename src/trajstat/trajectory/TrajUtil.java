@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.meteoinfo.global.MIMath;
-import org.meteoinfo.global.table.DataTypes;
+import org.meteoinfo.table.DataTypes;
 import org.meteoinfo.global.util.GlobalUtil;
 import org.meteoinfo.layer.LayerDrawType;
 import org.meteoinfo.layer.VectorLayer;

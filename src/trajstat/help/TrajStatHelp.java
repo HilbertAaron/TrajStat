@@ -26,7 +26,7 @@ import javax.swing.JMenuItem;
  *
  * @author Yaqiang Wang
  */
-public class TrajStatHelp {
+public final class TrajStatHelp {
 
     JFrame f;
     JMenuItem topics;
@@ -65,6 +65,8 @@ public class TrajStatHelp {
 
     /**
      * find the helpset file and create a HelpSet object
+     * @param helpsetfile The help set file
+     * @return The help set
      */
     public HelpSet getHelpSet(String helpsetfile) {
         HelpSet hs = null;

@@ -41,7 +41,7 @@ import org.meteoinfo.plugin.IApplication;
 import org.meteoinfo.shape.PolylineZShape;
 import org.meteoinfo.geoprocess.analysis.DistanceType;
 import org.meteoinfo.global.GenericFileFilter;
-import org.meteoinfo.global.table.DataTypes;
+import org.meteoinfo.table.DataTypes;
 import org.meteoinfo.layer.LayerDrawType;
 import org.meteoinfo.legend.LegendManage;
 import org.meteoinfo.legend.LegendScheme;

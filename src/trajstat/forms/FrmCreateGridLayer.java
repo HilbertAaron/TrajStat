@@ -29,7 +29,7 @@ import org.meteoinfo.global.Extent;
 import org.meteoinfo.global.GenericFileFilter;
 import org.meteoinfo.global.MIMath;
 import org.meteoinfo.global.PointD;
-import org.meteoinfo.global.table.DataTypes;
+import org.meteoinfo.table.DataTypes;
 import org.meteoinfo.layer.LayerDrawType;
 import org.meteoinfo.layer.MapLayer;
 import org.meteoinfo.layer.VectorLayer;
@@ -283,7 +283,7 @@ public class FrmCreateGridLayer extends javax.swing.JDialog {
         if (this.jComboBox_SameAsLayer.getItemCount() > 0) {
             String layerName = this.jComboBox_SameAsLayer.getSelectedItem().toString();
             if (!layerName.equals("None")) {
-                MapLayer layer = app.getMapDocument().getActiveMapFrame().getMapView().getLayerFromName(layerName);
+                MapLayer layer = app.getMapDocument().getActiveMapFrame().getMapView().getLayer(layerName);
                 Extent extent = layer.getExtent();
                 this.jTextField_Bottom.setText(String.valueOf(extent.minY));
                 this.jTextField_Left.setText(String.valueOf(extent.minX));

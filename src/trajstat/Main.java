@@ -39,7 +39,7 @@ import javax.swing.SwingWorker;
 import org.meteoinfo.data.mapdata.Field;
 import org.meteoinfo.global.GenericFileFilter;
 import org.meteoinfo.global.MIMath;
-import org.meteoinfo.global.table.DataTypes;
+import org.meteoinfo.table.DataTypes;
 import org.meteoinfo.ui.CheckBoxListEntry;
 import org.meteoinfo.global.util.GlobalUtil;
 import org.meteoinfo.layer.LayerDrawType;
@@ -66,6 +66,7 @@ import trajstat.forms.FrmCreateGridLayer;
 import trajstat.forms.FrmMultiSel;
 import trajstat.forms.FrmPSCF;
 import trajstat.forms.FrmTrajMonth;
+import trajstat.help.Help;
 import trajstat.trajectory.TrajUtil;
 
 /**
@@ -271,12 +272,18 @@ public class Main extends PluginBase {
             trajMenu.add(mi);
 
             mi = new JMenuItem("Help");
-            HelpSet hs = getHelpSet("/trajstat/help/mi.hs");
-            HelpBroker hb = hs.createHelpBroker();
-            //Assign help to components
-            CSH.setHelpIDString(mi, "top");
-            //Handle events
-            mi.addActionListener(new CSH.DisplayHelpFromSource(hb));
+//            HelpSet hs = getHelpSet("/trajstat/help/mi.hs");
+//            HelpBroker hb = hs.createHelpBroker();
+//            //Assign help to components
+//            CSH.setHelpIDString(mi, "top");
+//            //Handle events
+//            mi.addActionListener(new CSH.DisplayHelpFromSource(hb));
+            mi.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    onHelpClick();
+                }
+            });
             trajMenu.add(mi);
         }
 
@@ -878,6 +885,16 @@ public class Main extends PluginBase {
         FrmAbout frm = new FrmAbout((JFrame) app, false);
         frm.setLocationRelativeTo((JFrame) app);
         frm.setVisible(true);
+    }
+    
+    private void onHelpClick() {
+        IApplication app = this.getApplication();
+        Help help = new Help();
+        help.setTitle("TrajStat - Help");
+        help.setIconImage("/trajstat/resources/TrajStat_Logo.png");
+        help.setSize(800, 700);
+        help.setLocationRelativeTo((JFrame) app);
+        help.setVisible(true);
     }
 
     /**

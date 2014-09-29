@@ -44,6 +44,8 @@ public class FrmClusterStat extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmClusterStat
+     * @param parent
+     * @param modal
      */
     public FrmClusterStat(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
