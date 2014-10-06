@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.help.CSH;
-import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -77,7 +75,7 @@ public class Main extends PluginBase {
     // <editor-fold desc="Variables">
 
     private JMenu trajMenu = null;
-    private String path;
+    final private String path;
     // </editor-fold>
     // <editor-fold desc="Constructor">
 
