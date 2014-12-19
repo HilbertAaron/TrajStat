@@ -28,21 +28,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.title.LegendTitle;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.RectangleEdge;
+import org.meteoinfo.chart.Chart;
+import org.meteoinfo.chart.ChartPanel;
+import org.meteoinfo.chart.plot.ChartPlotMethod;
+import org.meteoinfo.chart.plot.PlotOrientation;
+import org.meteoinfo.chart.plot.XYPlot;
+import org.meteoinfo.data.XYListDataset;
 import org.meteoinfo.global.event.IShapeSelectedListener;
 import org.meteoinfo.global.event.ShapeSelectedEvent;
 import org.meteoinfo.layer.VectorLayer;
+import org.meteoinfo.legend.ColorBreak;
+import org.meteoinfo.legend.LegendManage;
+import org.meteoinfo.legend.LegendScheme;
+import org.meteoinfo.legend.PointBreak;
+import org.meteoinfo.legend.PolygonBreak;
+import org.meteoinfo.legend.PolylineBreak;
 import org.meteoinfo.map.MouseTools;
 import org.meteoinfo.plugin.IApplication;
 import org.meteoinfo.shape.PointZ;
@@ -69,12 +69,15 @@ public class FrmChart extends JDialog {
 
     /**
      * Constructor
+     *
+     * @param parent
+     * @param modal
      */
     public FrmChart(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
-        this.app = (IApplication)parent;
+        this.app = (IApplication) parent;
         app.getMapDocument().getActiveMapFrame().getMapView().addShapeSelectedListener(new IShapeSelectedListener() {
             @Override
             public void shapeSelectedEvent(ShapeSelectedEvent event) {
@@ -110,10 +113,10 @@ public class FrmChart extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onSelTrajClick(e);
-            }            
+            }
         });
         toolBar.add(button_Sel);
-        
+
         icon = new ImageIcon(this.getClass().getResource("/trajstat/resources/Remove.png"));
         button_Remove.setIcon(icon);
         button_Remove.setToolTipText("Remove Last Trajectory");
@@ -121,10 +124,10 @@ public class FrmChart extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onRemoveClick(e);
-            }            
+            }
         });
         toolBar.add(button_Remove);
-        
+
         icon = new ImageIcon(this.getClass().getResource("/trajstat/resources/RemoveAll.png"));
         button_RemoveAll.setIcon(icon);
         button_RemoveAll.setToolTipText("Remove All Trajectories");
@@ -132,25 +135,27 @@ public class FrmChart extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onRemoveAllClick(e);
-            }            
+            }
         });
         toolBar.add(button_RemoveAll);
-        
+
         this.add(toolBar, BorderLayout.NORTH);
 
         //Chart panel                
         chartPanel.setBackground(Color.white);
         this.add(chartPanel, BorderLayout.CENTER);
     }
+
     // </editor-fold>
     // <editor-fold desc="Get Set Methods">
     // </editor-fold>
     // <editor-fold desc="Methods">
-    private void onSelTrajClick(ActionEvent e){
+
+    private void onSelTrajClick(ActionEvent e) {
         app.setCurrentTool((JButton) e.getSource());
         app.getMapDocument().getActiveMapFrame().getMapView().setMouseTool(MouseTools.SelectFeatures_Rectangle);
     }
-    
+
     private void onShapeSelected() {
         VectorLayer trajLayer = (VectorLayer) app.getMapDocument().getActiveMapFrame().getMapView().getSelectedLayer();
         if (trajLayer != null) {
@@ -181,55 +186,78 @@ public class FrmChart extends JDialog {
     }
 
     private void updateChart() {
-        String title = "";
-        String serieName;
-        XYSeriesCollection xyseriescollection = new XYSeriesCollection();
+        String title = null;
+        String seriesKey;
+        XYListDataset dataset = new XYListDataset();
         int i = 0;
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHH");
+        List<PolylineBreak> plbs = new ArrayList<PolylineBreak>();
         for (PolylineZShape shape : this.trajShapes) {
-            if (dates.size() > 0 && dates.size() >= i)
-                serieName = format.format(dates.get(i));
-            else
-                serieName = "Line " + String.valueOf(i);
-            XYSeries xySeries = new XYSeries(serieName);
-            for (int j = 0; j < shape.getPoints().size(); j++) {
-                xySeries.add(0 - j, ((PointZ)shape.getPoints().get(j)).Z);
+            if (dates.size() > 0 && dates.size() >= i) {
+                seriesKey = format.format(dates.get(i));
+            } else {
+                seriesKey = "Line " + String.valueOf(i);
             }
-            xyseriescollection.addSeries(xySeries);
+            int n = shape.getPointNum();
+            double[] xvs = new double[n];
+            double[] yvs = new double[n];
+            for (int j = 0; j < n; j++) {
+                xvs[j] = j;
+                yvs[j] = ((PointZ) shape.getPoints().get(j)).Z;
+            }
+            dataset.addSeries(seriesKey, xvs, yvs);
             i++;
         }
-        JFreeChart chart = ChartFactory.createXYLineChart(title, "Age Hour", "Pressure",
-                xyseriescollection, PlotOrientation.VERTICAL, true, true, false);        
-        XYPlot plot = chart.getXYPlot();
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
-        plot.setBackgroundPaint(null);
-        plot.setRangeGridlinePaint(Color.gray);
-        LegendTitle legend = (LegendTitle)chart.getSubtitle(0);
-        legend.setPosition(RectangleEdge.TOP);
-        NumberAxis yAxis = (NumberAxis)plot.getRangeAxis();
-        ValueAxis xAxis = plot.getDomainAxis();
-        yAxis.setInverted(true);
-        yAxis.setAutoRangeIncludesZero(false);
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        xAxis.setInverted(true);
-        XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer)plot.getRenderer();
-        renderer.setBaseShapesVisible(true);
-        renderer.setBaseShapesFilled(false);
-        chartPanel.setChart(chart);
-        chartPanel.repaint();
+
+        LegendScheme ls = LegendManage.createUniqValueLegendScheme(dataset.getSeriesCount(), ShapeTypes.Polyline);
+        for (ColorBreak cb : ls.getLegendBreaks()) {
+            PolylineBreak plb = (PolylineBreak) cb;
+            plb.setDrawSymbol(true);
+            plb.setSymbolInterval(6);
+            plb.setSize(2);
+        }
+
+        XYPlot plot = new XYPlot(false, dataset);
+        plot.setChartPlotMethod(ChartPlotMethod.LINE_POINT);
+        plot.getXAxis().setInverse(false);
+        plot.getYAxis().setInverse(true);
+        plot.getXAxis().setLabel("Age Hour");
+        plot.getYAxis().setLabel("hPa");
+        for (i = 0; i < dataset.getSeriesCount(); i++) {
+            String caption = dataset.getSeriesKey(i);
+            PolylineBreak plb = (PolylineBreak) ls.getLegendBreaks().get(i);
+            plb.setCaption(caption);
+            plot.setPolylineBreak(i, plb);
+
+            PointBreak pb = new PointBreak();
+            pb.setColor(plb.getSymbolColor());
+            pb.setSize(plb.getSymbolSize());
+            pb.setStyle(plb.getSymbolStyle());
+            pb.setCaption(caption);
+            plot.setPointBreak(i, pb);
+
+            PolygonBreak pgb = new PolygonBreak();
+            pgb.setColor(plb.getColor());
+            pgb.setCaption(caption);
+            plot.setPolygonBreak(i, pgb);
+        }
+
+        Chart chart = new Chart(title, plot);
+        chart.setDrawLegend(true);
+        this.chartPanel.setChart(chart);
+        this.chartPanel.paintGraphics();
     }
 
-    private void onRemoveClick(ActionEvent e){
-        if (this.trajShapes.size() > 0){
+    private void onRemoveClick(ActionEvent e) {
+        if (this.trajShapes.size() > 0) {
             this.trajShapes.remove(this.trajShapes.size() - 1);
             this.dates.remove(dates.size() - 1);
             this.updateChart();
         }
     }
-    
-    private void onRemoveAllClick(ActionEvent e){
-        if (this.trajShapes.size() > 0){
+
+    private void onRemoveAllClick(ActionEvent e) {
+        if (this.trajShapes.size() > 0) {
             this.trajShapes.clear();
             this.dates.clear();
             this.updateChart();

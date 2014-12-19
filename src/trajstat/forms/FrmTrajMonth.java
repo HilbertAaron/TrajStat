@@ -47,6 +47,9 @@ public class FrmTrajMonth extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmTrajMonth
+     * @param parent
+     * @param modal
+     * @param pluginPath
      */
     public FrmTrajMonth(java.awt.Frame parent, boolean modal, String pluginPath) {
         super(parent, modal);
