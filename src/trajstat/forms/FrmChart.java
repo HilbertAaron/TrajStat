@@ -31,8 +31,7 @@ import javax.swing.JFrame;
 import org.meteoinfo.chart.Chart;
 import org.meteoinfo.chart.ChartPanel;
 import org.meteoinfo.chart.plot.ChartPlotMethod;
-import org.meteoinfo.chart.plot.PlotOrientation;
-import org.meteoinfo.chart.plot.XYPlot;
+import org.meteoinfo.chart.plot.XY1DPlot;
 import org.meteoinfo.data.XYListDataset;
 import org.meteoinfo.global.event.IShapeSelectedListener;
 import org.meteoinfo.global.event.ShapeSelectedEvent;
@@ -217,7 +216,7 @@ public class FrmChart extends JDialog {
             plb.setSize(2);
         }
 
-        XYPlot plot = new XYPlot(false, dataset);
+        XY1DPlot plot = new XY1DPlot(false, dataset);
         plot.setChartPlotMethod(ChartPlotMethod.LINE_POINT);
         plot.getXAxis().setInverse(false);
         plot.getYAxis().setInverse(true);
