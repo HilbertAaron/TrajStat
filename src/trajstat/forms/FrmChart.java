@@ -39,8 +39,6 @@ import org.meteoinfo.layer.VectorLayer;
 import org.meteoinfo.legend.ColorBreak;
 import org.meteoinfo.legend.LegendManage;
 import org.meteoinfo.legend.LegendScheme;
-import org.meteoinfo.legend.PointBreak;
-import org.meteoinfo.legend.PolygonBreak;
 import org.meteoinfo.legend.PolylineBreak;
 import org.meteoinfo.map.MouseTools;
 import org.meteoinfo.plugin.IApplication;
@@ -218,6 +216,9 @@ public class FrmChart extends JDialog {
 
         XY1DPlot plot = new XY1DPlot(false, dataset);
         plot.setChartPlotMethod(ChartPlotMethod.LINE_POINT);
+        plot.setDrawLegend(true);
+        plot.getGridLine().setDrawXLine(true);
+        plot.getGridLine().setDrawYLine(true);
         plot.getXAxis().setInverse(false);
         plot.getYAxis().setInverse(true);
         plot.getXAxis().setLabel("Age Hour");
@@ -226,23 +227,10 @@ public class FrmChart extends JDialog {
             String caption = dataset.getSeriesKey(i);
             PolylineBreak plb = (PolylineBreak) ls.getLegendBreaks().get(i);
             plb.setCaption(caption);
-            plot.setPolylineBreak(i, plb);
-
-            PointBreak pb = new PointBreak();
-            pb.setColor(plb.getSymbolColor());
-            pb.setSize(plb.getSymbolSize());
-            pb.setStyle(plb.getSymbolStyle());
-            pb.setCaption(caption);
-            plot.setPointBreak(i, pb);
-
-            PolygonBreak pgb = new PolygonBreak();
-            pgb.setColor(plb.getColor());
-            pgb.setCaption(caption);
-            plot.setPolygonBreak(i, pgb);
+            plot.setLegendBreak(i, plb);
         }
 
-        Chart chart = new Chart(title, plot);
-        chart.setDrawLegend(true);
+        Chart chart = new Chart(title, plot);        
         this.chartPanel.setChart(chart);
         this.chartPanel.paintGraphics();
     }
