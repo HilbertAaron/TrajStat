@@ -405,6 +405,8 @@ public class FrmPSCF extends javax.swing.JDialog {
             aLayer.editCellValue("WPSCF", i, wpscf);
         }
         aLayer.getAttributeTable().save();
+        aLayer.updateLegendIndexes();
+        this.app.getMapView().paintLayers();
 
         //---- Hide progressbar
         this.setCursor(Cursor.getDefaultCursor());

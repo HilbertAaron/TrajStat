@@ -29,7 +29,10 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel1" pref="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jButton_Calculate" min="-2" pref="108" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jButton_Calculate" min="-2" pref="108" max="-2" attributes="0"/>
+                          <Component id="jButton_viewTSV" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -43,18 +46,16 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
+                      <Component id="jButton_Calculate" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton_Calculate" min="-2" pref="47" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButton_viewTSV" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -392,5 +393,14 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="jButton_viewTSV">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View TSV"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_viewTSVActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

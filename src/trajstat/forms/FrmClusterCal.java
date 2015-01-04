@@ -13,8 +13,10 @@
  */
 package trajstat.forms;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,11 +29,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
+import javax.swing.WindowConstants;
+import org.meteoinfo.chart.Chart;
+import org.meteoinfo.chart.ChartPanel;
+import org.meteoinfo.chart.plot.XY1DPlot;
+import org.meteoinfo.data.XYListDataset;
 import org.meteoinfo.geoprocess.analysis.Clustering;
 import org.meteoinfo.ui.CheckBoxListEntry;
 import org.meteoinfo.layer.VectorLayer;
@@ -45,9 +53,11 @@ import org.meteoinfo.table.DataTypes;
 import org.meteoinfo.layer.LayerDrawType;
 import org.meteoinfo.legend.LegendManage;
 import org.meteoinfo.legend.LegendScheme;
+import org.meteoinfo.legend.PolylineBreak;
 import org.meteoinfo.shape.PointZ;
 import org.meteoinfo.shape.ShapeTypes;
 import trajstat.Main;
+import trajstat.trajectory.TrajUtil;
 
 /**
  *
@@ -59,6 +69,9 @@ public class FrmClusterCal extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmClusterCal
+     *
+     * @param parent
+     * @param modal
      */
     public FrmClusterCal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -85,9 +98,10 @@ public class FrmClusterCal extends javax.swing.JDialog {
         this.jComboBox_Distance.addItem(DistanceType.ANGLE);
 
         this.jComboBox_MaxClusterNum.removeAllItems();
-        for (int i = 9; i <= 20; i++) {
+        for (int i = 9; i <= 30; i++) {
             this.jComboBox_MaxClusterNum.addItem(i);
         }
+        this.jComboBox_MaxClusterNum.setSelectedItem(30);
     }
 
     /**
@@ -124,6 +138,7 @@ public class FrmClusterCal extends javax.swing.JDialog {
         jComboBox_ClusterNum = new javax.swing.JComboBox();
         jButton_MeanTraj = new javax.swing.JButton();
         jButton_AddToTraj = new javax.swing.JButton();
+        jButton_viewTSV = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -327,6 +342,14 @@ public class FrmClusterCal extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jButton_viewTSV.setText("View TSV");
+        jButton_viewTSV.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_viewTSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_viewTSVActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -336,7 +359,9 @@ public class FrmClusterCal extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_Calculate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton_Calculate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_viewTSV, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -346,15 +371,14 @@ public class FrmClusterCal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton_Calculate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton_Calculate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jButton_viewTSV, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -560,7 +584,6 @@ public class FrmClusterCal extends javax.swing.JDialog {
                     shpfn = shpfn + "." + extent;
                 }
 
-
                 VectorLayer aLayer = new VectorLayer(ShapeTypes.PolylineZ);
                 aLayer.editAddField("Cluster", DataTypes.String);
                 aLayer.editAddField("Traj_Num", DataTypes.Integer);
@@ -678,6 +701,115 @@ public class FrmClusterCal extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton_AddToTrajActionPerformed
 
+    private void jButton_viewTSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_viewTSVActionPerformed
+        BufferedReader src = null;
+        try {
+            // TODO add your handling code here:
+            String clusterFile = this.jTextField_OutputFile.getText();
+            if (!new File(clusterFile).exists()) {
+                JOptionPane.showMessageDialog(null, "File does not exist!"
+                        + System.getProperty("line.separator") + clusterFile);
+                return;
+            }
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            DefaultListModel listModel = (DefaultListModel) this.checkBoxList_Data.getModel();
+            List<VectorLayer> layers = new ArrayList<VectorLayer>();
+            int i;
+            for (i = 0; i < listModel.getSize(); i++) {
+                if (((CheckBoxListEntry) listModel.get(i)).isSelected()) {
+                    layers.add((VectorLayer) ((CheckBoxListEntry) listModel.get(i)).getValue());
+                }
+            }
+            int maxClusterNum = (Integer) this.jComboBox_MaxClusterNum.getSelectedItem();
+            DistanceType disType = (DistanceType) this.jComboBox_Distance.getSelectedItem();
+            List<List<Integer>> clusters = new ArrayList<List<Integer>>();
+            for (i = 2; i <= maxClusterNum; i++) {
+                clusters.add(new ArrayList<Integer>());
+            }
+            int pointNum = Integer.parseInt(this.jLabel_PointNumValue.getText());
+            int cluster;
+            src = new BufferedReader(new FileReader(new File(clusterFile)));
+            src.readLine();
+            String[] dArray;
+            String line = src.readLine();
+            while (line != null) {
+                dArray = line.split(",");
+                if (dArray.length >= maxClusterNum) {
+                    for (i = 2; i <= maxClusterNum; i++) {
+                        cluster = Integer.parseInt(dArray[i]);
+                        clusters.get(i - 2).add(cluster);
+                    }
+                }
+                line = src.readLine();
+            }
+            src.close();
+            List<Double> tsvrs = new ArrayList<Double>();
+            double tsv1 = 0.0, tsv2, r;
+            for (i = 2; i <= maxClusterNum; i++) {
+                List<Integer> cls = clusters.get(i - 2);
+                tsv2 = TrajUtil.calTSV(cls, i, pointNum, layers, disType);
+                if (i == 2) {
+                    tsv1 = tsv2;
+                } else {
+                    r = Math.abs(tsv2 - tsv1) * 100 / tsv1;
+                    tsvrs.add(r);
+                    tsv1 = tsv2;
+                }
+            }
+
+            //Plot
+            XYListDataset dataset = new XYListDataset();
+            int n = maxClusterNum - 2;
+            double[] xvs = new double[n];
+            double[] yvs = new double[n];
+            List<Double> xTickValues = new ArrayList<Double>();
+            xTickValues.add(Double.valueOf(0));
+            xTickValues.add(Double.valueOf(1));
+            for (i = 0; i < n; i++) {
+                xvs[i] = i + 2;
+                xTickValues.add(Double.valueOf(i + 2));
+                yvs[i] = tsvrs.get(i);
+            }
+            xTickValues.add(Double.valueOf(n + 2));
+            dataset.addSeries("S_1", xvs, yvs);
+            XY1DPlot plot = new XY1DPlot(dataset);
+            ((PolylineBreak) plot.getLegendBreak(0)).setDrawSymbol(true);
+            plot.getGridLine().setDrawXLine(true);
+            plot.getGridLine().setDrawYLine(true);
+            plot.getXAxis().setInverse(true);
+            plot.getXAxis().setLabel("Number of clusters");
+            plot.getXAxis().setDrawLabel(true);
+            plot.getXAxis().setTickValues(xTickValues);
+            plot.getYAxis().setLabel("Percent change in TVS (%)");
+            plot.getYAxis().setDrawLabel(true);
+            Chart chart = new Chart(plot);
+            ChartPanel chartPanel = new ChartPanel(chart);
+            JFrame frame = new JFrame();
+            BufferedImage image = null;
+            try {
+                image = ImageIO.read(this.getClass().getResource("/trajstat/resources/TrajStat_Logo.png"));
+            } catch (Exception e) {
+            }
+            frame.setIconImage(image);
+            frame.getContentPane().add(chartPanel, BorderLayout.CENTER);
+            frame.setSize(600, 400);
+            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            frame.setLocationRelativeTo(this);
+            frame.setVisible(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrmClusterCal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FrmClusterCal.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            this.setCursor(Cursor.getDefaultCursor());
+            try {
+                src.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FrmClusterCal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton_viewTSVActionPerformed
+
     private void addClusterToLayers(final List<String[]> cDataArray, final List<VectorLayer> layers) {
         SwingWorker worker = new SwingWorker<String, String>() {
             @Override
@@ -732,7 +864,7 @@ public class FrmClusterCal extends javax.swing.JDialog {
                 FrmClusterCal.this.setCursor(Cursor.getDefaultCursor());
             }
         };
-        
+
         worker.execute();
     }
 
@@ -784,6 +916,7 @@ public class FrmClusterCal extends javax.swing.JDialog {
     private javax.swing.JButton jButton_MeanTraj;
     private javax.swing.JButton jButton_OutputFile;
     private javax.swing.JButton jButton_SelAll;
+    private javax.swing.JButton jButton_viewTSV;
     private javax.swing.JCheckBox jCheckBox_IgnoreDataLines;
     private javax.swing.JComboBox jComboBox_ClusterNum;
     private javax.swing.JComboBox jComboBox_Distance;

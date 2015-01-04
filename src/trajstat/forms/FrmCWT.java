@@ -451,6 +451,8 @@ public class FrmCWT extends javax.swing.JDialog {
             aLayer.editCellValue("WCWT", i, wcwt);
         }
         aLayer.getAttributeTable().save();
+        aLayer.updateLegendIndexes();
+        this.app.getMapView().paintLayers();
 
         //---- Hide progressbar
         this.setCursor(Cursor.getDefaultCursor());

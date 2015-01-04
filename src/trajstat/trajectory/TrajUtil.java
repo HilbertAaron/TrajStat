@@ -28,7 +28,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.meteoinfo.geoprocess.analysis.DistanceType;
 import org.meteoinfo.global.MIMath;
+import org.meteoinfo.global.PointD;
 import org.meteoinfo.table.DataTypes;
 import org.meteoinfo.global.util.GlobalUtil;
 import org.meteoinfo.layer.LayerDrawType;
@@ -554,5 +556,176 @@ public class TrajUtil {
                 }
             }
         }
+    }
+
+    /**
+     * Calculate cluster mean trajectories
+     *
+     * @param clusters The cluster list
+     * @param CLev Cluster level
+     * @param pointNum Endpoint number of one trajectory
+     * @param layers Trajectory layers
+     * @return Mean trajectory data of all clusters
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public static double[][] calMeanTrajs(List<Integer> clusters, int CLev, int pointNum, List<VectorLayer> layers) throws FileNotFoundException, IOException {
+        int M;
+        int cluster;
+        int i, j;
+        M = pointNum * 3;
+        double[][] trajDataArray = new double[CLev][M];
+        //---- Mean Trajectories
+        int[] trajNumArray = new int[CLev];
+        //Initialize Trajectory number of each cluster
+        for (i = 0; i < CLev; i++) {
+            trajNumArray[i] = 0;
+            for (j = 0; j < M; j++) {
+                trajDataArray[i][j] = 0.0;
+            }
+        }
+        i = 0;
+        for (VectorLayer layer : layers) {
+            for (int s = 0; s < layer.getShapeNum(); s++) {
+                PolylineZShape shape = (PolylineZShape) layer.getShapes().get(s);
+                if (shape.getPointNum() != pointNum) {
+                    continue;
+                }
+
+                cluster = clusters.get(i);
+                int m = 0;
+                for (j = 0; j < pointNum; j++) {
+                    PointZ point = (PointZ) shape.getPoints().get(j);
+                    trajDataArray[cluster - 1][m] += point.Y;
+                    m += 1;
+                    trajDataArray[cluster - 1][m] += point.X;
+                    m += 1;
+                    trajDataArray[cluster - 1][m] += point.Z;
+                    m += 1;
+                }
+                trajNumArray[cluster - 1] += 1;
+                i += 1;
+            }
+        }
+
+        for (i = 0; i < CLev; i++) {
+            for (j = 0; j < M; j++) {
+                trajDataArray[i][j] = trajDataArray[i][j] / trajNumArray[i];
+            }
+        }
+
+        return trajDataArray;
+    }
+
+    /**
+     * Calculate total spatial variance - TSV Calculate cluster spatial variance
+     * = SPVAR
+     *
+     * @param clusters The cluster list
+     * @param CLev Cluster level
+     * @param pointNum Endpoint number of one trajectory
+     * @param layers Trajectory layers
+     * @param disType Distance type
+     * @return Mean trajectory data of all clusters
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public static double calTSV(List<Integer> clusters, int CLev, int pointNum, List<VectorLayer> layers,
+            DistanceType disType) throws FileNotFoundException, IOException {
+        //Calculate mean trajectories
+        double[][] trajDataArray = calMeanTrajs(clusters, CLev, pointNum, layers);
+
+        //Calculate TSV
+        double tsv = 0.0;
+        int cluster;
+        int i, j;
+        double x, y;
+        i = 0;
+        for (VectorLayer layer : layers) {
+            for (int s = 0; s < layer.getShapeNum(); s++) {
+                PolylineZShape shape = (PolylineZShape) layer.getShapes().get(s);
+                if (shape.getPointNum() != pointNum) {
+                    continue;
+                }
+
+                cluster = clusters.get(i);
+                double dist;
+                int m = 0;
+                PointD[] trajA = new PointD[pointNum];
+                PointD[] trajB = new PointD[pointNum];
+                for (j = 0; j < pointNum; j++) {
+                    PointZ point = (PointZ) shape.getPoints().get(j);
+                    trajA[j] = new PointD(point.X, point.Y);                    
+                    y = trajDataArray[cluster - 1][m];
+                    m += 1;
+                    x = trajDataArray[cluster - 1][m];
+                    m += 2;
+                    trajB[j] = new PointD(x, y);                    
+                }
+                if (disType == DistanceType.EUCLIDEAN)
+                    dist = calDistance_Euclidean(trajA, trajB);
+                else
+                    dist = calDistance_Angle(trajA, trajB);
+                tsv += dist;
+                i += 1;
+            }
+        }
+
+        return tsv;
+    }
+
+    /**
+     * Calculate distance - Euclidean
+     * @param trajA Trajectory A
+     * @param trajB Trajectory B
+     * @return Euclidean distance
+     */
+    public static double calDistance_Euclidean(PointD[] trajA, PointD[] trajB) {
+        double dist = 0.0;
+        int n = trajA.length;
+        PointD pA, pB;
+        for (int j = 0; j < n; j++) {
+            pA = trajA[j];
+            pB = trajB[j];
+            dist += (pA.X - pB.X) * (pA.X - pB.X) + (pA.Y - pB.Y) * (pA.Y - pB.Y);
+        }
+        dist = Math.sqrt(dist);
+
+        return dist;
+    }
+
+    /**
+     * Calculate distance - angle
+     * @param trajA Trajectory A
+     * @param trajB Trajectory B
+     * @return Angle distance
+     */
+    public static double calDistance_Angle(PointD[] trajA, PointD[] trajB) {
+        double dist = 0.0;
+        double angle;
+        int n = trajA.length;
+        PointD pA, pB;
+        double A, B, C;
+        double X0 = trajA[0].X;
+        double Y0 = trajB[0].Y;
+        for (int j = 1; j < n; j++) {
+            pA = trajA[j];
+            pB = trajB[j];
+            A = Math.pow((pA.X - X0), 2) + Math.pow((pA.Y - Y0), 2);
+            B = Math.pow((pB.X - X0), 2) + Math.pow((pB.Y - Y0), 2);
+            C = Math.pow((pB.X - pA.X), 2) + Math.pow((pB.Y - pA.Y), 2);
+            if (A == 0 | B == 0) {
+                angle = 0;
+            } else {
+                angle = 0.5 * (A + B - C) / Math.sqrt(A * B);
+            }
+            if ((Math.abs(angle) > 1.0)) {
+                angle = 1.0;
+            }
+            dist += Math.acos(angle);
+        }
+        dist = dist / n;
+
+        return dist;
     }
 }
