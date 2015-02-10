@@ -137,6 +137,12 @@ public class FrmCWT extends javax.swing.JDialog {
         jTextField_EndPoint = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextField_ReduceRatio = new javax.swing.JTextField();
+        jButton_Weight = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField_TrajNum = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField_ReduceRatio_Traj = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PSCF Analysis");
@@ -253,6 +259,53 @@ public class FrmCWT extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton_Weight.setText("Weight");
+        jButton_Weight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_WeightActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Weight by trajectory number"));
+
+        jLabel7.setText("Trajectory:");
+
+        jTextField_TrajNum.setText("3;1");
+        jTextField_TrajNum.setToolTipText("");
+
+        jLabel8.setText("Reduce Ratio:");
+
+        jTextField_ReduceRatio_Traj.setText("0.5;0.2");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_TrajNum)
+                    .addComponent(jTextField_ReduceRatio_Traj))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextField_TrajNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextField_ReduceRatio_Traj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -260,9 +313,17 @@ public class FrmCWT extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton_Weight, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(86, 86, 86))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
@@ -293,17 +354,22 @@ public class FrmCWT extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(jComboBox_Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jTextField_Missing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton_Weight)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -458,6 +524,48 @@ public class FrmCWT extends javax.swing.JDialog {
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_jButton_WeightCWTActionPerformed
 
+    private void jButton_WeightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_WeightActionPerformed
+        // TODO add your handling code here:
+        VectorLayer aLayer = (VectorLayer) this.jComboBox_CWTLayer.getSelectedItem();
+
+        String[] endPoints = this.jTextField_TrajNum.getText().split(";");
+        String[] reduceRatios = this.jTextField_ReduceRatio_Traj.getText().split(";");
+        int epNum = endPoints.length;
+
+        //---- Show progressbar
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+        //---- Weighting PSCF
+        int i;
+        int tNij;
+        int j;
+        double cwt;
+        double wcwt;
+        for (i = 0; i < aLayer.getShapeNum(); i++) {
+            tNij = Integer.parseInt(aLayer.getCellValue("N_Traj", i).toString());
+            cwt = Double.parseDouble(aLayer.getCellValue("WCWT", i).toString());
+            wcwt = cwt;
+            for (j = 0; j <= epNum - 1; j++) {
+                if (j == epNum - 1) {
+                    if (tNij <= Integer.parseInt(endPoints[j])) {
+                        wcwt = cwt * Double.parseDouble(reduceRatios[j]);
+                    }
+                } else {
+                    if (tNij <= Integer.parseInt(endPoints[j]) && tNij > Integer.parseInt(endPoints[j + 1])) {
+                        wcwt = cwt * Double.parseDouble(reduceRatios[j]);
+                    }
+                }
+            }
+            aLayer.editCellValue("WCWT", i, wcwt);
+        }
+        aLayer.getAttributeTable().save();
+        aLayer.updateLegendIndexes();
+        this.app.getMapView().paintLayers();
+
+        //---- Hide progressbar
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_jButton_WeightActionPerformed
+
     private void getEndPointsInCell(final String aType, final double aCriterion, final double aNData) {
         SwingWorker worker = new SwingWorker<String, String>() {
             @Override
@@ -500,17 +608,20 @@ public class FrmCWT extends javax.swing.JDialog {
                     usingCriterion = true;
                 }
                 int[] Nijs = new int[PSCFLayer.getShapeNum()];
+                int[] TNijs = new int[PSCFLayer.getShapeNum()];
                 int i;
                 for (i = 0; i < Nijs.length; i++) {
                     Nijs[i] = 0;
+                    TNijs[i] = 0;
                 }
-                int dataFldIdx = 0;
+                int dataFldIdx;
+                List<Integer> cellIdx = new ArrayList<Integer>();
                 String fieldName = FrmCWT.this.jComboBox_Field.getSelectedItem().toString();
                 for (VectorLayer tLayer : layers) {
                     app.getProgressBarLabel().setText(tLayer.getLayerName());
                     dataFldIdx = tLayer.getFieldIdxByName(fieldName);
                     double value;
-                    for (i = 0; i < tLayer.getShapeNum(); i++) {
+                    for (i = 0; i < tLayer.getShapeNum(); i++) {                        
                         value = Double.parseDouble(tLayer.getCellValue(dataFldIdx, i).toString());
                         if (MIMath.doubleEquals(value, aNData)) {
                             continue;
@@ -522,6 +633,7 @@ public class FrmCWT extends javax.swing.JDialog {
                             }
                         }
 
+                        cellIdx.clear();
                         PolylineZShape aPLZ = (PolylineZShape) tLayer.getShapes().get(i);
                         for (int p = 0; p < aPLZ.getPointNum(); p++) {
                             PointD aPoint = new PointD(aPLZ.getPoints().get(p).X, aPLZ.getPoints().get(p).Y);
@@ -529,6 +641,10 @@ public class FrmCWT extends javax.swing.JDialog {
                                 PolygonShape aPGS = (PolygonShape) PSCFLayer.getShapes().get(s);
                                 if (GeoComputation.pointInPolygon(aPGS.getPoints(), aPoint)) {
                                     Nijs[s] += 1;
+                                    if (!cellIdx.contains(s)){
+                                        TNijs[s] += 1;
+                                        cellIdx.add(s);
+                                    }
                                     break;
                                 }
                             }
@@ -540,6 +656,8 @@ public class FrmCWT extends javax.swing.JDialog {
                 //---- Update PSCF layer                        
                 for (i = 0; i < PSCFLayer.getShapeNum(); i++) {
                     PSCFLayer.editCellValue(aType, i, Nijs[i]);
+                    if (!usingCriterion)
+                        PSCFLayer.editCellValue("N_Traj", i, TNijs[i]);
                 }
                 PSCFLayer.getAttributeTable().save();
 
@@ -605,6 +723,7 @@ public class FrmCWT extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_CalCWT;
     private javax.swing.JButton jButton_GetNij;
+    private javax.swing.JButton jButton_Weight;
     private javax.swing.JButton jButton_WeightCWT;
     private javax.swing.JComboBox jComboBox_CWTLayer;
     private javax.swing.JComboBox jComboBox_Field;
@@ -613,12 +732,17 @@ public class FrmCWT extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField_EndPoint;
     private javax.swing.JTextField jTextField_Missing;
     private javax.swing.JTextField jTextField_ReduceRatio;
+    private javax.swing.JTextField jTextField_ReduceRatio_Traj;
+    private javax.swing.JTextField jTextField_TrajNum;
     private javax.swing.JTree jTree_TrajLayers;
     // End of variables declaration//GEN-END:variables
 }

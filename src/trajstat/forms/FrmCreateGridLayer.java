@@ -50,6 +50,8 @@ public class FrmCreateGridLayer extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmCreateGridLayer
+     * @param parent
+     * @param modal
      */
     public FrmCreateGridLayer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -382,10 +384,10 @@ public class FrmCreateGridLayer extends javax.swing.JDialog {
                 file = new File(shpfn);
             }
 
-            int i = 0;
-            int j = 0;
+            int i, j;
             VectorLayer aLayer = new VectorLayer(ShapeTypes.Polygon);
             aLayer.editAddField("ID", DataTypes.Integer);
+            aLayer.editAddField("N_Traj", DataTypes.Integer);
             aLayer.editAddField("Nij", DataTypes.Integer);
             aLayer.editAddField("Mij", DataTypes.Integer);
             aLayer.editAddField("PSCF", DataTypes.Double);
@@ -396,7 +398,6 @@ public class FrmCreateGridLayer extends javax.swing.JDialog {
             for (j = 0; j <= yNum - 1; j++) {
                 for (i = 0; i <= xNum - 1; i++) {
                     PolygonShape aPGS = new PolygonShape();
-
                     List<PointD> pList = new ArrayList<PointD>();
                     PointD newPt = new PointD();
                     aX = aLeft + i * aCellSize;
@@ -427,6 +428,7 @@ public class FrmCreateGridLayer extends javax.swing.JDialog {
                     try {
                         if (aLayer.editInsertShape(aPGS, shapeNum)) {
                             aLayer.editCellValue("ID", shapeNum, shapeNum + 1);
+                            aLayer.editCellValue("N_Traj", shapeNum, 0);
                             aLayer.editCellValue("Nij", shapeNum, 0);
                             aLayer.editCellValue("Mij", shapeNum, 0);
                             aLayer.editCellValue("PSCF", shapeNum, 0.0);
@@ -481,6 +483,7 @@ public class FrmCreateGridLayer extends javax.swing.JDialog {
             int j = 0;
             VectorLayer aLayer = new VectorLayer(ShapeTypes.Polygon);
             aLayer.editAddField("ID", DataTypes.Integer);
+            aLayer.editAddField("N_Traj", DataTypes.Integer);
             aLayer.editAddField("Nij", DataTypes.Integer);
             aLayer.editAddField("CWT", DataTypes.Double);
             aLayer.editAddField("WCWT", DataTypes.Double);
@@ -520,6 +523,7 @@ public class FrmCreateGridLayer extends javax.swing.JDialog {
                     try {
                         if (aLayer.editInsertShape(aPGS, shapeNum)) {
                             aLayer.editCellValue("ID", shapeNum, shapeNum + 1);
+                            aLayer.editCellValue("N_Traj", shapeNum, 0);
                             aLayer.editCellValue("Nij", shapeNum, 0);
                             aLayer.editCellValue("CWT", shapeNum, 0.0);
                             aLayer.editCellValue("WCWT", shapeNum, 0.0);
@@ -577,6 +581,7 @@ public class FrmCreateGridLayer extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 FrmCreateGridLayer dialog = new FrmCreateGridLayer(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
