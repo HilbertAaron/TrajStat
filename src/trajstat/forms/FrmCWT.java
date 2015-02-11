@@ -145,7 +145,7 @@ public class FrmCWT extends javax.swing.JDialog {
         jTextField_ReduceRatio_Traj = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("PSCF Analysis");
+        setTitle("CWT Analysis");
 
         jLabel1.setText("CWT Layer:");
 
