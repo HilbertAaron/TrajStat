@@ -29,7 +29,7 @@ import org.meteoinfo.global.Extent;
 import org.meteoinfo.global.GenericFileFilter;
 import org.meteoinfo.global.MIMath;
 import org.meteoinfo.global.PointD;
-import org.meteoinfo.table.DataTypes;
+import org.meteoinfo.data.DataTypes;
 import org.meteoinfo.layer.LayerDrawType;
 import org.meteoinfo.layer.MapLayer;
 import org.meteoinfo.layer.VectorLayer;

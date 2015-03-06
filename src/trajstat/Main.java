@@ -37,7 +37,7 @@ import javax.swing.SwingWorker;
 import org.meteoinfo.data.mapdata.Field;
 import org.meteoinfo.global.GenericFileFilter;
 import org.meteoinfo.global.MIMath;
-import org.meteoinfo.table.DataTypes;
+import org.meteoinfo.data.DataTypes;
 import org.meteoinfo.ui.CheckBoxListEntry;
 import org.meteoinfo.global.util.GlobalUtil;
 import org.meteoinfo.layer.LayerDrawType;
