@@ -188,7 +188,7 @@ public class FrmChart extends JDialog {
         XYListDataset dataset = new XYListDataset();
         int i = 0;
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHH");
-        List<PolylineBreak> plbs = new ArrayList<PolylineBreak>();
+        //List<PolylineBreak> plbs = new ArrayList<PolylineBreak>();
         for (PolylineZShape shape : this.trajShapes) {
             if (dates.size() > 0 && dates.size() >= i) {
                 seriesKey = format.format(dates.get(i));
@@ -215,6 +215,7 @@ public class FrmChart extends JDialog {
         }
 
         XY1DPlot plot = new XY1DPlot(false, dataset);
+        plot.setAutoPosition(true);
         plot.setChartPlotMethod(ChartPlotMethod.LINE_POINT);
         plot.setDrawLegend(true);
         plot.getGridLine().setDrawXLine(true);
