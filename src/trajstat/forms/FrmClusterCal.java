@@ -436,13 +436,12 @@ public class FrmClusterCal extends javax.swing.JDialog {
         int trajNum = 0;
         int pointNum = 0;
         int n = 0;
-        int interval = Integer.parseInt(this.jTextField_PointInterval.getText());
         for (int i = 0; i < listModel.getSize(); i++) {
             if (((CheckBoxListEntry) listModel.get(i)).isSelected()) {
                 VectorLayer layer = (VectorLayer) ((CheckBoxListEntry) listModel.get(i)).getValue();
                 if (n == 0) {
                     PolylineZShape shape = (PolylineZShape) layer.getShapes().get(0);
-                    pointNum = shape.getPointNum() / interval;
+                    pointNum = shape.getPointNum();
                 }
                 trajNum += layer.getShapeNum();
 
@@ -476,8 +475,11 @@ public class FrmClusterCal extends javax.swing.JDialog {
         int trajNum = Integer.parseInt(this.jLabel_TrajNumValue.getText());
         int pointNum = Integer.parseInt(this.jLabel_PointNumValue.getText());
         int interval = Integer.parseInt(this.jTextField_PointInterval.getText());
+        int npointNum = pointNum / interval;
+        if (pointNum % interval > 0)
+            npointNum += 1;
         try {
-            Clustering.calculate(layers, outfn, trajNum, pointNum * 2, maxClusterNum, interval, disType);
+            Clustering.calculate(layers, outfn, trajNum, npointNum * 2, maxClusterNum, interval, disType);
             JOptionPane.showMessageDialog(null, "Clustering calculation finished!");
         } catch (IOException ex) {
             Logger.getLogger(FrmClusterCal.class.getName()).log(Level.SEVERE, null, ex);
