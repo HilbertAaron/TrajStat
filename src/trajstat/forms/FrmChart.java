@@ -90,6 +90,8 @@ public class FrmChart extends JDialog {
         } catch (Exception e) {
         }
         this.setIconImage(image);
+        
+        this.button_Sel.doClick();
     }
 
     private void initComponents() {
@@ -158,6 +160,7 @@ public class FrmChart extends JDialog {
         if (trajLayer != null) {
             if (trajLayer.getShapeType() == ShapeTypes.PolylineZ) {
                 Calendar cal = Calendar.getInstance();
+                int n = 0;
                 for (int i = 0; i < trajLayer.getShapeNum(); i++) {
                     if (trajLayer.getShapes().get(i).isSelected()) {
                         if (trajLayer.getFieldIdxByName("Date") >= 0) {
@@ -168,16 +171,18 @@ public class FrmChart extends JDialog {
                             aDate = cal.getTime();
 
                             if (dates.contains(aDate)) {
-                                return;
+                                continue;
                             }
                             dates.add(aDate);
                         }
 
                         PolylineZShape aPLZ = (PolylineZShape) trajLayer.getShapes().get(i);
-                        trajShapes.add(aPLZ);
-                        updateChart();
+                        trajShapes.add(aPLZ);     
+                        n += 1;
                     }
                 }
+                if (n > 0)
+                    updateChart();
             }
         }
     }
