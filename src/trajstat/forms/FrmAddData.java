@@ -426,7 +426,7 @@ public class FrmAddData extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "No data was extracted from the file!");
                     return;
                 }
-                int TLen = myDataList.get(0)[0].length();
+                //int TLen = myDataList.get(0)[0].length();
                 //Select layers
                 GroupNode gNode = app.getMapDocument().getActiveMapFrame().getGroupByName("Trajectory");
                 FrmMultiSel frmMultiSel = new FrmMultiSel((JFrame) app, true);
@@ -506,8 +506,15 @@ public class FrmAddData extends javax.swing.JDialog {
                                         break;
                                 }
                                 layer.editCellValue(CFldIdx, i, value);
+                                int tlen;
+                                String dstr;
                                 for (j = 0; j < N; j++) {
-                                    if (aDateStr.substring(0, TLen).equals(myDataList.get(j)[0])) {
+                                    tlen = myDataList.get(j)[0].length();
+                                    if (tlen <= aDateStr.length())
+                                        dstr = aDateStr.substring(0, tlen);
+                                    else
+                                        dstr = aDateStr;
+                                    if (dstr.equals(myDataList.get(j)[0])) {
                                         String dStr = myDataList.get(j)[1];
                                         value = dStr;
                                         switch (aType) {
@@ -541,8 +548,15 @@ public class FrmAddData extends javax.swing.JDialog {
                                 cal.set(aYear, aMonth, dateIdx, aDay, aHour);
                                 cal.add(Calendar.HOUR_OF_DAY, timeZone);
                                 aDateStr = format.format(cal.getTime());
+                                int tlen;
+                                String dstr;
                                 for (j = 0; j <= N - 1; j++) {
-                                    if (aDateStr.substring(0, TLen).equals(myDataList.get(j)[0])) {
+                                    tlen = myDataList.get(j)[0].length();
+                                    if (tlen <= aDateStr.length())
+                                        dstr = aDateStr.substring(0, tlen);
+                                    else
+                                        dstr = aDateStr;
+                                    if (dstr.equals(myDataList.get(j)[0])) {
                                         layer.editCellValue(CFldIdx, i, myDataList.get(j)[1]);
                                         break;
                                     }
