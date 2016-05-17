@@ -61,6 +61,7 @@ public class FrmChart extends JDialog {
     private javax.swing.JButton button_RemoveAll;
     private List<Date> dates = new ArrayList<>();
     private List<Object[]> trajShapes = new ArrayList<>();
+    private boolean isSingleLegend = true;
     // </editor-fold>
     // <editor-fold desc="Constructor">
 
@@ -159,6 +160,7 @@ public class FrmChart extends JDialog {
         VectorLayer trajLayer = (VectorLayer) app.getMapDocument().getActiveMapFrame().getMapView().getSelectedLayer();
         if (trajLayer != null) {
             if (trajLayer.getShapeType() == ShapeTypes.PolylineZ) {
+                this.isSingleLegend = trajLayer.getLegendScheme().getBreakNum() == 1;
                 Calendar cal = Calendar.getInstance();
                 int n = 0;
                 for (int i = 0; i < trajLayer.getShapeNum(); i++) {
@@ -197,7 +199,7 @@ public class FrmChart extends JDialog {
         //List<PolylineBreak> plbs = new ArrayList<PolylineBreak>();
         for (Object[] objs : this.trajShapes) {
             PolylineZShape shape = (PolylineZShape)objs[0];
-            if (dates.size() > 0 && dates.size() >= i) {
+            if (dates.size() > 0 && dates.size() > i) {
                 seriesKey = format.format(dates.get(i));
             } else {
                 seriesKey = "Line " + String.valueOf(i);
@@ -211,15 +213,7 @@ public class FrmChart extends JDialog {
             }
             dataset.addSeries(seriesKey, xvs, yvs);
             i++;
-        }
-
-//        LegendScheme ls = LegendManage.createUniqValueLegendScheme(dataset.getSeriesCount(), ShapeTypes.Polyline);
-//        for (ColorBreak cb : ls.getLegendBreaks()) {
-//            PolylineBreak plb = (PolylineBreak) cb;
-//            plb.setDrawSymbol(true);
-//            plb.setSymbolInterval(6);
-//            plb.setSize(2);
-//        }
+        }        
 
         XY1DPlot plot = new XY1DPlot(false, dataset);
         plot.setAutoPosition(true);
@@ -231,12 +225,28 @@ public class FrmChart extends JDialog {
         plot.getYAxis().setInverse(true);
         plot.getXAxis().setLabel("Age Hour");
         plot.getYAxis().setLabel("hPa");
-        ColorBreak cb;
-        for (i = 0; i < dataset.getSeriesCount(); i++) {
-            cb = (ColorBreak)this.trajShapes.get(i)[1];
-            plot.setLegendBreak(i, cb);
+        if (this.isSingleLegend){
+            LegendScheme ls = LegendManage.createUniqValueLegendScheme(dataset.getSeriesCount(), ShapeTypes.Polyline);
+            for (ColorBreak cb : ls.getLegendBreaks()) {
+                PolylineBreak plb = (PolylineBreak) cb;
+                plb.setDrawSymbol(true);
+                plb.setSymbolInterval(6);
+                plb.setSize(2);
+            }
+            for (i = 0; i < dataset.getSeriesCount(); i++) {
+                String caption = dataset.getSeriesKey(i);
+                PolylineBreak plb = (PolylineBreak) ls.getLegendBreaks().get(i);
+                plb.setCaption(caption);
+                plot.setLegendBreak(i, plb);
+            }
+        } else {
+            ColorBreak cb;
+            for (i = 0; i < dataset.getSeriesCount(); i++) {
+                cb = (ColorBreak)this.trajShapes.get(i)[1];
+                plot.setLegendBreak(i, cb);
+            }
+            plot.updateLegendScheme();
         }
-        plot.updateLegendScheme();
 
         Chart chart = new Chart(title, plot);        
         this.chartPanel.setChart(chart);
