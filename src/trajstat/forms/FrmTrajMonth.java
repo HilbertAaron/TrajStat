@@ -793,7 +793,7 @@ public class FrmTrajMonth extends javax.swing.JDialog {
                     _trajConfig.upateStartTime(i, 0);
                     String tgsfn = _trajConfig.getOutPath() + format.format(_trajConfig.getStartTime())
                             + ".tgs";                    
-                    List<String> trajfns = new ArrayList<String>();
+                    List<String> trajfns = new ArrayList<>();
                     for (int j = 0; j < hourNum; j++) {
                         //Write control file
                         _trajConfig.upateStartTime(i, j);
