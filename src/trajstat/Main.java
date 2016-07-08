@@ -490,7 +490,7 @@ public class Main extends PluginBase {
         frmMultiSel.setListModel(listModel);
         frmMultiSel.setLocationRelativeTo((JFrame) app);
         frmMultiSel.setVisible(true);
-        List<VectorLayer> layers = new ArrayList<VectorLayer>();
+        List<VectorLayer> layers = new ArrayList<>();
         if (frmMultiSel.isOK()) {
             listModel = frmMultiSel.getListModel();
             for (i = 0; i < listModel.getSize(); i++) {

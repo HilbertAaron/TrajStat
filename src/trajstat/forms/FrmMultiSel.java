@@ -28,6 +28,8 @@ public class FrmMultiSel extends javax.swing.JDialog {
     
     /**
      * Creates new form FrmMutiSel
+     * @param parent
+     * @param modal
      */
     public FrmMultiSel(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
