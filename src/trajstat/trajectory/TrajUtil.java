@@ -456,7 +456,7 @@ public class TrajUtil {
                 if (i > 0 && pList.size() > 1) {
                     PolylineZShape aPolylineZ = new PolylineZShape();
                     aPolylineZ.setPoints(pList);
-                    aPolylineZ.value = 0;
+                    aPolylineZ.setValue(0);
                     aPolylineZ.setExtent(MIMath.getPointsExtent(pList));
                     int shapeNum = aLayer.getShapeNum();
                     if (aLayer.editInsertShape(aPolylineZ, shapeNum)) {
@@ -502,7 +502,7 @@ public class TrajUtil {
         if (i > 1 && pList.size() > 0) {
             PolylineZShape aPolylineZ = new PolylineZShape();
             aPolylineZ.setPoints(pList);
-            aPolylineZ.value = 0;
+            aPolylineZ.setValue(0);
             aPolylineZ.setExtent(MIMath.getPointsExtent(pList));
             int shapeNum = aLayer.getShapeNum();
             if (aLayer.editInsertShape(aPolylineZ, shapeNum)) {
