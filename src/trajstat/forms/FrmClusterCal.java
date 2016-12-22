@@ -715,7 +715,7 @@ public class FrmClusterCal extends javax.swing.JDialog {
             }
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             DefaultListModel listModel = (DefaultListModel) this.checkBoxList_Data.getModel();
-            List<VectorLayer> layers = new ArrayList<VectorLayer>();
+            List<VectorLayer> layers = new ArrayList<>();
             int i;
             for (i = 0; i < listModel.getSize(); i++) {
                 if (((CheckBoxListEntry) listModel.get(i)).isSelected()) {
@@ -724,7 +724,7 @@ public class FrmClusterCal extends javax.swing.JDialog {
             }
             int maxClusterNum = (Integer) this.jComboBox_MaxClusterNum.getSelectedItem();
             DistanceType disType = (DistanceType) this.jComboBox_Distance.getSelectedItem();
-            List<List<Integer>> clusters = new ArrayList<List<Integer>>();
+            List<List<Integer>> clusters = new ArrayList<>();
             for (i = 2; i <= maxClusterNum; i++) {
                 clusters.add(new ArrayList<Integer>());
             }
@@ -745,7 +745,7 @@ public class FrmClusterCal extends javax.swing.JDialog {
                 line = src.readLine();
             }
             src.close();
-            List<Double> tsvrs = new ArrayList<Double>();
+            List<Double> tsvrs = new ArrayList<>();
             double tsv1 = 0.0, tsv2, r;
             for (i = 2; i <= maxClusterNum; i++) {
                 List<Integer> cls = clusters.get(i - 2);
@@ -764,7 +764,7 @@ public class FrmClusterCal extends javax.swing.JDialog {
             int n = maxClusterNum - 2;
             double[] xvs = new double[n];
             double[] yvs = new double[n];
-            List<Double> xTickValues = new ArrayList<Double>();
+            List<Double> xTickValues = new ArrayList<>();
             xTickValues.add(Double.valueOf(0));
             xTickValues.add(Double.valueOf(1));
             for (i = 0; i < n; i++) {
