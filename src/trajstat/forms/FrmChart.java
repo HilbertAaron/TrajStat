@@ -238,15 +238,15 @@ public class FrmChart extends JDialog {
                 PolylineBreak plb = (PolylineBreak) ls.getLegendBreaks().get(i);
                 plb.setCaption(caption);
                 plot.setLegendBreak(i, plb);
-            }
+            }            
         } else {
             ColorBreak cb;
             for (i = 0; i < dataset.getSeriesCount(); i++) {
                 cb = (ColorBreak)this.trajShapes.get(i)[1];
                 plot.setLegendBreak(i, cb);
             }
-            plot.updateLegendScheme();
         }
+        plot.updateLegendScheme();
 
         Chart chart = new Chart(title, plot);        
         this.chartPanel.setChart(chart);
