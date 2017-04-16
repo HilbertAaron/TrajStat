@@ -216,7 +216,7 @@ public class FrmChart extends JDialog {
         }        
 
         XY1DPlot plot = new XY1DPlot(false, dataset);
-        plot.setAutoPosition(true);
+        //plot.setAutoPosition(true);
         plot.setChartPlotMethod(ChartPlotMethod.LINE_POINT);
         plot.setDrawLegend(true);
         plot.getGridLine().setDrawXLine(true);
